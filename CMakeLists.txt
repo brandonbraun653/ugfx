@@ -1,7 +1,4 @@
-# This file should have a target for:
-#   Drivers -> Any necessary LCD drivers
-#   Source  -> Single library per folder
-#   Include -> One target for all includes
+include("${COMMON_TOOL_ROOT}/cmake/utility/embedded.cmake")
 
 # =============================================================================
 # Constants
@@ -64,177 +61,242 @@ export(TARGETS ugfx_inc FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_inc.cmake")
 # ===============================================
 # gadc
 # ===============================================
-add_library(ugfx_gadc_lib STATIC ${UGFX_SRC_DIR}/gadc/gadc.c)
-target_link_libraries(ugfx_gadc_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gadc_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gadc_lib.cmake")
+function(build_library_adc variant)
+  set(LIB ugfx_gadc_lib${variant})
+  add_library(${LIB} STATIC ${UGFX_SRC_DIR}/gadc/gadc.c)
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_adc)
 
 # ===============================================
 # gaudio
 # ===============================================
-add_library(ugfx_gaudio_lib STATIC ${UGFX_SRC_DIR}/gaudio/gaudio.c)
-target_link_libraries(ugfx_gaudio_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gaudio_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gaudio_lib.cmake")
+function(build_library_gaudio variant)
+  set(LIB ugfx_gaudio_lib${variant})
+  add_library(${LIB} STATIC ${UGFX_SRC_DIR}/gaudio/gaudio.c)
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gaudio)
 
 # ===============================================
 # gdisp
 # ===============================================
-add_library(ugfx_gdisp_lib STATIC
-  ${UGFX_SRC_DIR}/gdisp/gdisp.c
-  ${UGFX_SRC_DIR}/gdisp/gdisp.c
-  ${UGFX_SRC_DIR}/gdisp/gdisp_fonts.c
-  ${UGFX_SRC_DIR}/gdisp/gdisp_pixmap.c
-  ${UGFX_SRC_DIR}/gdisp/gdisp_image.c
-  ${UGFX_SRC_DIR}/gdisp/gdisp_image_native.c
-  ${UGFX_SRC_DIR}/gdisp/gdisp_image_gif.c
-  ${UGFX_SRC_DIR}/gdisp/gdisp_image_bmp.c
-  ${UGFX_SRC_DIR}/gdisp/gdisp_image_jpg.c
-  ${UGFX_SRC_DIR}/gdisp/gdisp_image_png.c
-)
-target_link_libraries(ugfx_gdisp_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gdisp_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gdisp_lib.cmake")
+function(build_library_gdisp variant)
+  set(LIB ugfx_gdisp_lib${variant})
+  add_library(${LIB} STATIC
+    ${UGFX_SRC_DIR}/gdisp/gdisp.c
+    ${UGFX_SRC_DIR}/gdisp/gdisp.c
+    ${UGFX_SRC_DIR}/gdisp/gdisp_fonts.c
+    ${UGFX_SRC_DIR}/gdisp/gdisp_pixmap.c
+    ${UGFX_SRC_DIR}/gdisp/gdisp_image.c
+    ${UGFX_SRC_DIR}/gdisp/gdisp_image_native.c
+    ${UGFX_SRC_DIR}/gdisp/gdisp_image_gif.c
+    ${UGFX_SRC_DIR}/gdisp/gdisp_image_bmp.c
+    ${UGFX_SRC_DIR}/gdisp/gdisp_image_jpg.c
+    ${UGFX_SRC_DIR}/gdisp/gdisp_image_png.c
+  )
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gdisp)
 
 # ===============================================
 # gdriver
 # ===============================================
-add_library(ugfx_gdriver_lib STATIC ${UGFX_SRC_DIR}/gdriver/gdriver.c)
-target_link_libraries(ugfx_gdriver_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gdriver_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gdriver_lib.cmake")
+function(build_library_gdriver variant)
+  set(LIB ugfx_gdriver_lib${variant})
+  add_library(${LIB} STATIC ${UGFX_SRC_DIR}/gdriver/gdriver.c)
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gdriver)
 
 # ===============================================
 # gevent
 # ===============================================
-add_library(ugfx_gevent_lib STATIC ${UGFX_SRC_DIR}/gevent/gevent.c)
-target_link_libraries(ugfx_gevent_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gevent_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gevent_lib.cmake")
+function(build_library_gevent variant)
+  set(LIB ugfx_gevent_lib${variant})
+  add_library(${LIB} STATIC ${UGFX_SRC_DIR}/gevent/gevent.c)
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gevent)
 
 # ===============================================
 # gfile
 # ===============================================
-add_library(ugfx_gfile_lib STATIC
-  ${UGFX_SRC_DIR}/gfile/gfile.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fs_native.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fs_ram.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fs_rom.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fs_fatfs.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fs_petitfs.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fs_mem.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fs_chibios.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fs_strings.c
-  ${UGFX_SRC_DIR}/gfile/gfile_printg.c
-  ${UGFX_SRC_DIR}/gfile/gfile_scang.c
-  ${UGFX_SRC_DIR}/gfile/gfile_stdio.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fatfs_wrapper.c
-  ${UGFX_SRC_DIR}/gfile/gfile_fatfs_diskio_chibios.c
-  ${UGFX_SRC_DIR}/gfile/gfile_petitfs_wrapper.c
-  ${UGFX_SRC_DIR}/gfile/gfile_petitfs_diskio_chibios.c
-)
-target_link_libraries(ugfx_gfile_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gfile_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gfile_lib.cmake")
+function(build_library_gfile variant)
+  set(LIB ugfx_gfile_lib${variant})
+  add_library(${LIB} STATIC
+    ${UGFX_SRC_DIR}/gfile/gfile.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fs_native.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fs_ram.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fs_rom.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fs_fatfs.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fs_petitfs.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fs_mem.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fs_chibios.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fs_strings.c
+    ${UGFX_SRC_DIR}/gfile/gfile_printg.c
+    ${UGFX_SRC_DIR}/gfile/gfile_scang.c
+    ${UGFX_SRC_DIR}/gfile/gfile_stdio.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fatfs_wrapper.c
+    ${UGFX_SRC_DIR}/gfile/gfile_fatfs_diskio_chibios.c
+    ${UGFX_SRC_DIR}/gfile/gfile_petitfs_wrapper.c
+    ${UGFX_SRC_DIR}/gfile/gfile_petitfs_diskio_chibios.c
+  )
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gfile)
 
 # ===============================================
 # ginput
 # ===============================================
-add_library(ugfx_ginput_lib STATIC
-  ${UGFX_SRC_DIR}/ginput/ginput.c
-  ${UGFX_SRC_DIR}/ginput/ginput_mouse.c
-  ${UGFX_SRC_DIR}/ginput/ginput_keyboard.c
-  ${UGFX_SRC_DIR}/ginput/ginput_keyboard_microcode.c
-  ${UGFX_SRC_DIR}/ginput/ginput_toggle.c
-  ${UGFX_SRC_DIR}/ginput/ginput_dial.c
-)
-target_link_libraries(ugfx_ginput_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_ginput_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_ginput_lib.cmake")
+function(build_library_ginput variant)
+  set(LIB ugfx_ginput_lib${variant})
+  add_library(${LIB} STATIC
+    ${UGFX_SRC_DIR}/ginput/ginput.c
+    ${UGFX_SRC_DIR}/ginput/ginput_mouse.c
+    ${UGFX_SRC_DIR}/ginput/ginput_keyboard.c
+    ${UGFX_SRC_DIR}/ginput/ginput_keyboard_microcode.c
+    ${UGFX_SRC_DIR}/ginput/ginput_toggle.c
+    ${UGFX_SRC_DIR}/ginput/ginput_dial.c
+  )
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_ginput)
 
 
 # ===============================================
 # gmisc
 # ===============================================
-add_library(ugfx_gmisc_lib STATIC
-  ${UGFX_SRC_DIR}/gmisc/gmisc.c
-  ${UGFX_SRC_DIR}/gmisc/gmisc_arrayops.c
-  ${UGFX_SRC_DIR}/gmisc/gmisc_matrix2d.c
-  ${UGFX_SRC_DIR}/gmisc/gmisc_trig.c
-  ${UGFX_SRC_DIR}/gmisc/gmisc_hittest.c
-)
-target_link_libraries(ugfx_gmisc_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gmisc_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gmisc_lib.cmake")
+function(build_library_gmisc variant)
+  set(LIB ugfx_gmisc_lib${variant})
+  add_library(${LIB} STATIC
+    ${UGFX_SRC_DIR}/gmisc/gmisc.c
+    ${UGFX_SRC_DIR}/gmisc/gmisc_arrayops.c
+    ${UGFX_SRC_DIR}/gmisc/gmisc_matrix2d.c
+    ${UGFX_SRC_DIR}/gmisc/gmisc_trig.c
+    ${UGFX_SRC_DIR}/gmisc/gmisc_hittest.c
+  )
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gmisc)
 
 # ===============================================
 # gos
 # ===============================================
-add_library(ugfx_gos_lib STATIC
-  ${UGFX_SRC_DIR}/gos/gos_chibios.c
-  ${UGFX_SRC_DIR}/gos/gos_freertos.c
-  ${UGFX_SRC_DIR}/gos/gos_win32.c
-  ${UGFX_SRC_DIR}/gos/gos_linux.c
-  ${UGFX_SRC_DIR}/gos/gos_osx.c
-  ${UGFX_SRC_DIR}/gos/gos_raw32.c
-  ${UGFX_SRC_DIR}/gos/gos_ecos.c
-  ${UGFX_SRC_DIR}/gos/gos_rawrtos.c
-  ${UGFX_SRC_DIR}/gos/gos_arduino.c
-  ${UGFX_SRC_DIR}/gos/gos_cmsis.c
-  ${UGFX_SRC_DIR}/gos/gos_nios.c
-  ${UGFX_SRC_DIR}/gos/gos_zephyr.c
-  ${UGFX_SRC_DIR}/gos/gos_x_threads.c
-  ${UGFX_SRC_DIR}/gos/gos_x_heap.c
-)
-target_link_libraries(ugfx_gos_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gos_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gos_lib.cmake")
+function(build_library_gos variant)
+  set(LIB ugfx_gos_lib${variant})
+  add_library(${LIB} STATIC
+    ${UGFX_SRC_DIR}/gos/gos_chibios.c
+    ${UGFX_SRC_DIR}/gos/gos_freertos.c
+    ${UGFX_SRC_DIR}/gos/gos_win32.c
+    ${UGFX_SRC_DIR}/gos/gos_linux.c
+    ${UGFX_SRC_DIR}/gos/gos_osx.c
+    ${UGFX_SRC_DIR}/gos/gos_raw32.c
+    ${UGFX_SRC_DIR}/gos/gos_ecos.c
+    ${UGFX_SRC_DIR}/gos/gos_rawrtos.c
+    ${UGFX_SRC_DIR}/gos/gos_arduino.c
+    ${UGFX_SRC_DIR}/gos/gos_cmsis.c
+    ${UGFX_SRC_DIR}/gos/gos_nios.c
+    ${UGFX_SRC_DIR}/gos/gos_zephyr.c
+    ${UGFX_SRC_DIR}/gos/gos_x_threads.c
+    ${UGFX_SRC_DIR}/gos/gos_x_heap.c
+  )
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gos)
 
 # ===============================================
 # gqueue
 # ===============================================
-add_library(ugfx_gqueue_lib STATIC ${UGFX_SRC_DIR}/gqueue/gqueue.c)
-target_link_libraries(ugfx_gqueue_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gqueue_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gqueue_lib.cmake")
+
+function(build_library_gqueue variant)
+  set(LIB ugfx_gqueue_lib${variant})
+  add_library(${LIB} STATIC ${UGFX_SRC_DIR}/gqueue/gqueue.c)
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gqueue)
 
 # ===============================================
 # gtimer
 # ===============================================
-add_library(ugfx_gtimer_lib STATIC ${UGFX_SRC_DIR}/gtimer/gtimer.c)
-target_link_libraries(ugfx_gtimer_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gtimer_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gtimer_lib.cmake")
+function(build_library_gtimer variant)
+  set(LIB ugfx_gtimer_lib${variant})
+  add_library(${LIB} STATIC ${UGFX_SRC_DIR}/gtimer/gtimer.c)
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gtimer)
 
 # ===============================================
 # gwin
 # ===============================================
-add_library(ugfx_gwin_lib STATIC
-  ${UGFX_SRC_DIR}/gwin/gwin.c
-  ${UGFX_SRC_DIR}/gwin/gwin_widget.c
-  ${UGFX_SRC_DIR}/gwin/gwin_wm.c
-  ${UGFX_SRC_DIR}/gwin/gwin_console.c
-  ${UGFX_SRC_DIR}/gwin/gwin_graph.c
-  ${UGFX_SRC_DIR}/gwin/gwin_button.c
-  ${UGFX_SRC_DIR}/gwin/gwin_slider.c
-  ${UGFX_SRC_DIR}/gwin/gwin_checkbox.c
-  ${UGFX_SRC_DIR}/gwin/gwin_image.c
-  ${UGFX_SRC_DIR}/gwin/gwin_label.c
-  ${UGFX_SRC_DIR}/gwin/gwin_radio.c
-  ${UGFX_SRC_DIR}/gwin/gwin_list.c
-  ${UGFX_SRC_DIR}/gwin/gwin_progressbar.c
-  ${UGFX_SRC_DIR}/gwin/gwin_container.c
-  ${UGFX_SRC_DIR}/gwin/gwin_frame.c
-  ${UGFX_SRC_DIR}/gwin/gwin_tabset.c
-  ${UGFX_SRC_DIR}/gwin/gwin_gl3d.c
-  ${UGFX_SRC_DIR}/gwin/gwin_keyboard.c
-  ${UGFX_SRC_DIR}/gwin/gwin_keyboard_layout.c
-  ${UGFX_SRC_DIR}/gwin/gwin_textedit.c
-)
-target_link_libraries(ugfx_gwin_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gwin_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gwin_lib.cmake")
+function(build_library_gwin variant)
+  set(LIB ugfx_gwin_lib${variant})
+  add_library(${LIB} STATIC
+    ${UGFX_SRC_DIR}/gwin/gwin.c
+    ${UGFX_SRC_DIR}/gwin/gwin_widget.c
+    ${UGFX_SRC_DIR}/gwin/gwin_wm.c
+    ${UGFX_SRC_DIR}/gwin/gwin_console.c
+    ${UGFX_SRC_DIR}/gwin/gwin_graph.c
+    ${UGFX_SRC_DIR}/gwin/gwin_button.c
+    ${UGFX_SRC_DIR}/gwin/gwin_slider.c
+    ${UGFX_SRC_DIR}/gwin/gwin_checkbox.c
+    ${UGFX_SRC_DIR}/gwin/gwin_image.c
+    ${UGFX_SRC_DIR}/gwin/gwin_label.c
+    ${UGFX_SRC_DIR}/gwin/gwin_radio.c
+    ${UGFX_SRC_DIR}/gwin/gwin_list.c
+    ${UGFX_SRC_DIR}/gwin/gwin_progressbar.c
+    ${UGFX_SRC_DIR}/gwin/gwin_container.c
+    ${UGFX_SRC_DIR}/gwin/gwin_frame.c
+    ${UGFX_SRC_DIR}/gwin/gwin_tabset.c
+    ${UGFX_SRC_DIR}/gwin/gwin_gl3d.c
+    ${UGFX_SRC_DIR}/gwin/gwin_keyboard.c
+    ${UGFX_SRC_DIR}/gwin/gwin_keyboard_layout.c
+    ${UGFX_SRC_DIR}/gwin/gwin_textedit.c
+  )
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gwin)
 
 # ===============================================
 # gcore
 # ===============================================
-add_library(ugfx_gcore_lib STATIC ${UGFX_SRC_DIR}/gfx.c)
-target_link_libraries(ugfx_gcore_lib PRIVATE ugfx_inc prj_device_target prj_build_target)
-export(TARGETS ugfx_gcore_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_gcore_lib.cmake")
+function(build_library_gcore variant)
+  set(LIB ugfx_gcore_lib${variant})
+  add_library(${LIB} STATIC ${UGFX_SRC_DIR}/gfx.c)
+  target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
+endfunction()
 
-# ===============================================
+add_target_variants(build_library_gcore)
+
+# ====================================================
 # All source libs
-# ===============================================
-add_library(ugfx_lib INTERFACE)
-target_link_libraries(ugfx_lib INTERFACE
+# ====================================================
+set(all_libraries
   ugfx_gadc_lib
   ugfx_gaudio_lib
   ugfx_gdisp_lib
@@ -249,7 +311,33 @@ target_link_libraries(ugfx_lib INTERFACE
   ugfx_gwin_lib
   ugfx_gcore_lib
 )
-export(TARGETS ugfx_lib FILE "${PROJECT_BINARY_DIR}/ugfx/ugfx_lib.cmake")
+
+# ====================================================
+# This function generates the following targets:
+#   ugfx_lib
+#   ugfx_lib_rel
+#   ugfx_lib_rel_dbg
+#   ugfx_lib_dbg
+#
+# Each target builds the appropriate variant of the
+# libraries listed above in "all_libraries".
+# ====================================================
+function(build_ugfx_core variant)
+
+  # Add the variant flag to each library target
+  set(all_libraries_tmp${variant} "")
+  foreach(lib ${all_libraries})
+    list(APPEND all_libraries_tmp${variant} ${lib}${variant})
+  endforeach()
+
+  # Create interface library for the appropriate variant
+  set(UGFX_CORE${variant} ugfx_lib${variant})
+  add_library("${UGFX_CORE${variant}}" INTERFACE)
+  target_link_libraries("${UGFX_CORE${variant}}" INTERFACE "${all_libraries_tmp${variant}}")
+  export(TARGETS "${UGFX_CORE${variant}}" FILE "${PROJECT_BINARY_DIR}/ugfx/${UGFX_CORE${variant}}.cmake")
+
+endfunction()
+add_target_variants(build_ugfx_core)
 
 # =============================================================================
 # Driver Libraries
@@ -263,12 +351,18 @@ target_include_directories(ugfx_st7735_inc INTERFACE ${UGFX_VER_DIR}/drivers/gdi
 export(TARGETS ugfx_st7735_inc FILE "${PROJECT_BINARY_DIR}/ugfx/drivers/ugfx_st7735_inc.cmake")
 
 # Library target
-add_library(ugfx_st7735_lib STATIC ${UGFX_VER_DIR}/drivers/gdisp/ST7735/gdisp_lld_ST7735.c)
-target_link_libraries(ugfx_st7735_lib PRIVATE
-  root_inc
-  ugfx_inc
-  ugfx_st7735_inc
-  prj_device_target
-  prj_build_target
-)
-export(TARGETS ugfx_st7735_lib FILE "${PROJECT_BINARY_DIR}/ugfx/drivers/ugfx_st7735_lib.cmake")
+
+function(build_library_gst7735 variant)
+  set(LIB ugfx_st7735_lib${variant})
+  add_library(${LIB} STATIC ${UGFX_VER_DIR}/drivers/gdisp/ST7735/gdisp_lld_ST7735.c)
+  target_link_libraries(${LIB}  PRIVATE
+    root_inc
+    ugfx_inc
+    ugfx_st7735_inc
+    prj_device_target
+    prj_build_target${variant}
+  )
+  export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/drivers/${LIB}.cmake")
+endfunction()
+
+add_target_variants(build_library_gst7735)
