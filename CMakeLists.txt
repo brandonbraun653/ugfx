@@ -89,7 +89,6 @@ function(build_library_gdisp variant)
   set(LIB ugfx_gdisp_lib${variant})
   add_library(${LIB} STATIC
     ${UGFX_SRC_DIR}/gdisp/gdisp.c
-    ${UGFX_SRC_DIR}/gdisp/gdisp.c
     ${UGFX_SRC_DIR}/gdisp/gdisp_fonts.c
     ${UGFX_SRC_DIR}/gdisp/gdisp_pixmap.c
     ${UGFX_SRC_DIR}/gdisp/gdisp_image.c
@@ -98,6 +97,14 @@ function(build_library_gdisp variant)
     ${UGFX_SRC_DIR}/gdisp/gdisp_image_bmp.c
     ${UGFX_SRC_DIR}/gdisp/gdisp_image_jpg.c
     ${UGFX_SRC_DIR}/gdisp/gdisp_image_png.c
+    ${UGFX_SRC_DIR}/gdisp/mcufont/mf_bwfont.c
+    ${UGFX_SRC_DIR}/gdisp/mcufont/mf_encoding.c
+    ${UGFX_SRC_DIR}/gdisp/mcufont/mf_font.c
+    ${UGFX_SRC_DIR}/gdisp/mcufont/mf_justify.c
+    ${UGFX_SRC_DIR}/gdisp/mcufont/mf_kerning.c
+    ${UGFX_SRC_DIR}/gdisp/mcufont/mf_rlefont.c
+    ${UGFX_SRC_DIR}/gdisp/mcufont/mf_scaledfont.c
+    ${UGFX_SRC_DIR}/gdisp/mcufont/mf_wordwrap.c
   )
   target_link_libraries(${LIB}  PRIVATE ugfx_inc prj_device_target prj_build_target${variant})
   export(TARGETS ${LIB} FILE "${PROJECT_BINARY_DIR}/ugfx/${LIB}.cmake")
